@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+
+
+  <title>Food calorie detection Live Update</title>
+</head>
+
+<body>
+
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Food calorie detection V2.0</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-2 text-dark" href="#">Image</a>
+      <a class="p-2 text-dark" href="#">Video</a>
+      <a class="p-2 text-dark" href="#">About Project</a>
+    </nav>
+    <a class="btn btn-outline-danger" href="#">Watch Live</a>
+  </div>
+
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Food calorie detection</h1>
+    <p class="lead">A cost effective Food calorie detection and alert system</p>
+  </div>
+
+  <div class="container">
+    <div class="card-deck mb-3 text-center">
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Image detect</h4>
+        </div>
+        <div class="card-body">
+          <br>
+          <h1 class="card-title pricing-card-title">Add Image <br><small class="text-muted">Simple detection</small>
+          </h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Select Image</li>
+            <li>Send to python backend</li>
+            <li>Process image</li>
+            <li>Display Output</li>
+          </ul>
+          <form id="upload-file" method="post" enctype="multipart/form-data">
+            <fieldset>
+
+
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" name="file">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
+
+
+            </fieldset>
+
+            <br>
+            <button id="upload-file-btn" class="btn btn-lg btn-block btn-primary" type="button">Upload Image</button>
+            </fieldset>
+            <br><img class="myimage" src="" width="100%" alt="" />
+            <h2 class='result'></h2><br>
+            <fieldset>
+          </form>
+
+        </div>
+      </div>
+     <!-- <div class="card mb-4 box-shadow">
+         <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Capture Image</h4>
+        </div>
+        <div class="card-body">
+          <br>
+          <h1 class="card-title pricing-card-title">Capture Image<br><small class="text-muted">Image Complex</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Capture Image</li>
+            <li>Send to python backend</li>
+            <li>Process image</li>
+            <li>Display Output</li>
+          </ul>
+          <form id="upload-file2" method="post" enctype="multipart/form-data">
+            <fieldset>
+
+
+              <div class="custom-file">
+                <input type="button" onclick="ShowCam()" id="button_ss" value="Start Camera">
+                <div id="my_camera"></div>
+                <div id="results"></div>
+                <input type="button" onclick="snap()" value="Snap"> -->
+                
+                <!-- <input type="text" class="custom-file-input" id="customFile2" name="file">
+                <label class="custom-file-label" for="customFile">Click to capture file</label> -->
+              <!-- </div>
+
+
+            </fieldset>
+            <fieldset>
+              <br>
+              <button id="upload-file-btn2" class="btn btn-lg btn-block btn-primary" type="button">Upload Image</button>
+              
+            </fieldset>
+            <br>
+            
+
+            <img class="myimage2" src="" width="100%" alt = "">
+            <h2 class='result2'></h2><br>
+          </form>
+        </div>
+      </div> -->
+      
+      <!-- <table class='result'></table> -->
+      <!-- <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Live detection</h4>
+        </div>
+        <div class="card-body">
+          <br>
+          <h1 class="card-title pricing-card-title">Watch Live<br><small class="text-muted">Live from base station
+            </small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Go to live screen</li>
+            <li>press show live</li>
+            <li>Live Footage </li>
+          </ul>
+          <br><br>
+          <form id="upload-file3" method="post" enctype="multipart/form-data">
+
+            <fieldset>
+              <br>
+              <button id="upload-file-btn3" class="btn btn-lg btn-block btn-outline-danger" type="button">Live stream</button>
+              <button id="upload-file-btn4" class="btn btn-lg btn-block btn-outline-danger" type="button">Stop Stram</button>
+            </fieldset>
+            <br>
+            
+
+            <img class="myimage3" src="" width="100%" alt = "">
+            <h2 class='result3'></h2><br>
+          </form>
+        </div>
+      </div> -->
+    </div>
+    <table class="table table-hover">
+      <!-- <caption>Smaple Data Table</caption> -->
+      <thead>
+        <tr>
+          <th>Food detected</th>
+          <th>Area of food</th>
+          <th>Free area</th>
+          <th>Total area</th>
+          <th>Energy</th>
+          <th>Fat</th>
+          <th>Carbohydrate</th>
+          <th>Sugars</th>
+        </tr>
+      </thead>
+      <tbody class="result11"></tbody>
+    </table>
+
+  </div>
+  <!-- Javascript -->
+  <script src="{{ url_for('static', filename = 'js/jquery-3.2.1.slim.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/webcam.js') }}"></script>
+
+  <script>
+
+function ShowCam() {
+    if(document.getElementById('button_ss').value == 'Stop Camera'){
+      Webcam.reset( '#my_camera' )
+    }
+    else{
+    Webcam.set({
+        width: 540,
+        height: 340,
+        image_format: 'jpeg',
+        jpeg_quality: 100
+    });
+    Webcam.attach('#my_camera');
+  }
+}
+
+
+function snap() {
+    Webcam.snap( function(data_uri) {
+      
+        // display results in page
+        document.getElementById('results').innerHTML = 
+        '<img id="image" src="'+data_uri+'"/>';
+        document.getElementById('button_ss').value = 'Restart Camera'
+        Webcam.set({
+        width: 0,
+        height: 0,
+        image_format: 'jpeg',
+        jpeg_quality: 0
+    });
+    Webcam.attach('#my_camera');
+        Webcam.reset( '#my_camera' )
+        document.getElementById('my_camera').innerHTML = 
+        '';
+        // document.getElementById('button_ss').onclick = stopCam()
+      } );      
+}
+
+function stopCam() {
+    Webcam.snap( function(data_uri) {
+        // display results in page
+        
+        document.getElementById('button_ss').value = 'Start Camera'
+        document.getElementById('button_ss').onclick = ShowCam()
+      } );      
+}
+
+  
+
+    // $(".myimage1").hide()
+    $(".custom-file-input").on("change", function () {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
+    $(function () {
+      $('#upload-file-btn').click(function () {
+        const nutrition_info = neutrition_data = {
+        'bread': [966,11.2,2.3,37.7,2.7,421,0.29,33],
+        'wheat': [966,11.2,2.3,37.7,2.7,421,0.29,33],
+        'Egg' : [574,12.4,9.5,0.7,0.3,127,0.6,67],
+        'Tomato' : [77.8,0.6,0,3,0.5,4,0.53,128],
+        'Macroon' : [260,11.2,45,165,0.415,18],
+        'Sausage' : [909,17.2,14.9,3.8,0.4,795,0.62,143]
+
+        }
+        console.log(neutrition_data['bread'])
+        var fd = new FormData();
+        // alert(document.getElementById('customFile').files[0])
+        fd.append("file", document.getElementById('customFile').files[0]);
+        fd.append("new_dude", 0);
+        // $(".result").html('Please wait.. fetching info...');
+        $(".result").html('<div>Please wait.. fetching info...</div> <br> <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div><br>');
+        $(".myimage").attr('src', "");
+        $.ajax({
+          url: '/upload',
+          type: 'POST',
+          data: fd,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            var res_html = ''
+            // alert(response.area)
+            // var food = new FormData();
+            var food_names = response.names
+
+            console.log( food_names );
+            var info = new Object();
+            var data_f = new Object();
+
+            data_f = JSON.parse(response.data)
+
+            try{
+
+            $.each( food_names, function( index, value ){
+                console.log(data_f.value)
+                // $.each( value, function( index, value ){
+
+                // });
+                console.log(info)
+                res_html  +='<tr><td>'
+                            + value
+                            + '</td><td>'
+                            + response.area
+                            + '</td><td>'
+                            + response.free_area
+                            + '</td><td>'
+                            + '440 cm Square'
+                            + '</td><td>'
+                            + neutrition_data[value][0]
+                            + '</td><td>'
+                            + neutrition_data[value][2]
+                            + '</td><td>'
+                            + neutrition_data[value][3]
+                            + '</td><td>'
+                            + neutrition_data[value][5]
+                            + '</td></tr>';
+            });        
+            }              
+            catch(err) {
+              console.log(err)
+              $.each( food_names, function( index, value ){
+                console.log(data_f.value)
+                // $.each( value, function( index, value ){
+
+                // });
+                console.log(info)
+                res_html  +='<tr><td>'
+                            + value
+                            + '</td><td>'
+                            + response.area
+                            + '</td><td>'
+                            + response.free_area
+                            + '</td><td>'
+                            + '440 cm Square'
+                            + '</td><td>'
+                            + 'Not found'
+                            '</td><td>'
+                            + 'Not found'
+                            '</td><td>'
+                            + 'Not found'
+                            '</td><td>'
+                            + 'Not found'
+                            + '</td></tr>';
+            });        
+            }
+            
+            $(".myimage").attr('src', "{{ url_for('static', filename = 'out/out.png') }}" + "?_=" + new Date().getTime());
+            $(".result").html('Detection complete');
+            $(".result11").append(res_html);
+            // alert(response.full_detctions)
+          
+          },
+          
+          error: function (xhr, ajaxOptions, thrownError) {
+            if(xhr.status == 500){
+            console.log(thrownError);
+            $(".result").html('<div>Internal error. Please try again.</div> <br> </div><br>');
+
+            }
+            else{
+            console.log(thrownError);
+            $(".result").html('<div>Error. Please try again.</div> <br> </div><br>');
+            }
+          }
+
+        });
+      });
+    });
+
+    $(function () {
+      $('#upload-file-btn2').click(function () {
+        var fd = new FormData();
+        var image = document.getElementById('image').src;
+        fd.append("file", image);
+        fd.append("new_dude", 4);
+        $(".result").html('Detecting...');
+
+        $.ajax({
+          url: '/upload',
+          type: 'POST',
+          data: fd,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            var res_html = ''
+            res_html  +='<tr><td>'
+              + 'To be done'
+                              + '</td><td>'
+                              + response.area
+                              + '</td><td>'
+                              + 'tobe done'
+                              + '</td><td>'
+                              + '440 cm Square'
+                              + '</td><td>'
+                              + 'To be done'
+                              + '</td></tr>';
+
+            $(".myimage2").attr('src', "{{ url_for('static', filename = 'out/out.png') }}" + "?_=" + new Date().getTime());
+            $(".results").html('Detection complete');
+            $(".result11").append(res_html);
+          },
+
+        });
+      });
+    });
+
+    // $(function () {
+    //   $('#upload-file-btn3').click(function () {
+    //     $(".myimage3").attr('src', " url_for('video_feed') "+ "?_=" + new Date().getTime());
+    //     $(".result3").html('Live Video');
+
+    //     var fd = new FormData();
+    //     fd.append("file", document.getElementById('customFile2').files[0]);
+
+
+    //     $.ajax({
+    //       url: '/livevid',
+    //       type: 'POST',
+    //       data: false,
+    //       contentType: false,
+    //       processData: false,
+    //       success: function (response) {
+            
+            
+    //         $(".result3").html("");
+    //       },
+
+    //     });
+    //   });
+    // });
+
+    $(function () {
+      $('#upload-file-btn4').click(function () {
+        $(".myimage3").attr('src', "");
+        $(".result3").html('Stopped');
+
+        var fd = new FormData();
+        fd.append("file", document.getElementById('customFile2').files[0]);
+
+        json = JSON.parse('{"status":"stop", "stat":"stop"}')
+        var URL = "/stop/test.json"
+        console.log(json)
+        $.ajax({
+          url: URL,
+          type: 'GET',
+          data: json,
+          dataType: 'json',
+          success: function (response) {
+            
+            
+            
+          },
+
+        });
+      });
+    });
+
+
+  </script>
+
+
+</body>
+
+</html>
